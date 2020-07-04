@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="description" content="Wedding Manager" />
+    <meta property="og:title" content="Wedding Manager" />
+    <meta property="og:description" content="Wedding Manager" />
+    <meta property="og:image" content="" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png" />
+    
+    <title>vue-wedding</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/range-slider/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/templete.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/testimonials.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/responsive.min.css">
+    <link rel="stylesheet" class="skin" type="text/css" href="/static/css/skin/skin-1.css" class="skin">
+    <link rel="stylesheet" type="text/css" href="/static/css/star-rating-svg.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/drop/imageuploadify.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/datepicker/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="//unpkg.com/element-ui@2.3.9/lib/theme-chalk/index.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/element-ui.css"> -->
+  </head>
+  <body onload="uploadSlider();">
+    <div id="app" class="pg-wraper"></div>
+    <!-- built files will be auto injected -->
+    <script src="/static/js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
+    <script src="/static/js/jquery-ui.js"></script><!-- JQUERY.MIN JS -->
+    <script src="/static/plugins/wow/wow.js"></script><!-- BOOTSTRAP.MIN JS -->
+    <script src="/static/plugins/bootstrap/js/popper.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+    <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+    <script src="/static/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+    <script src="/static/plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
+    <script src="/static/plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
+    <script src="/static/plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
+    <script src="/static/plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
+    <script src="/static/plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
+    <script src="/static/plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
+    <script src="/static/plugins/rangeslider/rangeslider.js"></script><!-- RANGESLIDER -->
+    <script src="/static/plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
+    <script src="/static/plugins/particles/particles.js"></script>
+    <script src="/static/plugins/particles/particles-app.js"></script>
+    <script src="/static/js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS  -->
+    <script src="/static/js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+    <script src="/static/js/testimonials.carousel.js"></script>
+    <script src="/static/js/dz.ajax.js"></script><!-- CONTACT JS  -->
+    <script src="/static/plugins/range-slider/bootstrap-slider.min.js"></script><!-- FORM JS -->
+    <script src="/static/plugins/datepicker/bootstrap-datetimepicker.min.js"></script><!-- DATE & TIME PICKER  -->
+    <!-- <script src="/static/plugins/datepicker/bootstrap-datetimepicker.js"></script>DATE & TIME PICKER  -->
+    <script src="/static/plugins/drop/imageuploadify.min.js"></script><!-- CONTACT JS  -->
+    <script>
+      $(document).ready(function() {
+        $('input[type="file"]').imageuploadify();
+      });
+    </script>
+    <script>
+      function uploadSlider () {
+        $("#ex14").slider({
+          ticks: [0, 10, 20, 40],
+          ticks_positions: [0, 30, 70, 100],
+          ticks_labels: ['$0', '$10', '$20', '$40'],
+          ticks_snap_bounds: 30
+        });
+
+        var slider = new Slider("#ex14", {
+          ticks: [0, 10, 20, 40],
+          ticks_positions: [0, 30, 70, 100],
+          ticks_labels: ['$0', '$10', '$20', '$40'],
+          ticks_snap_bounds: 30
+        })
+      }
+    </script>
+  </body>
+</html>

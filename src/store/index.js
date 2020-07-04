@@ -28,32 +28,28 @@ export default new Vuex.Store(
         context.commit(Type.GET_ALL_CATEGORIES, res)
       },
       async [Type.GET_ALL_VENDORS] (context) {
-        console.log('vendor')
         const res = await Services.getAllVendors()
         let temp = []
         let i = 0
         res.map(item => {
           if (item.images.length > 0) {
-            item.images.map(vendor => {
-              i++
-              temp.push({
-                id: i,
-                src: vendor.imageUrl,
-                specialMessage1: item.specialMessage1,
-                specialMessage2: item.specialMessage2,
-                featureType1: item.featureType1,
-                featureValue1: item.featureValue1,
-                priceRange: item.priceRange,
-                activeStatus: item.activeStatus,
-                address: item.address,
-                bizCategories: item.bizCategories,
-                rating: item.rating,
-                title: item.title
-              })
+            i++
+            temp.push({
+              id: i,
+              src: item.images[0].imageUrl,
+              specialMessage1: item.specialMessage1,
+              specialMessage2: item.specialMessage2,
+              featureType1: item.featureType1,
+              featureValue1: item.featureValue1,
+              priceRange: item.priceRange,
+              activeStatus: item.activeStatus,
+              address: item.address,
+              bizCategories: item.bizCategories,
+              rating: item.rating,
+              title: item.title
             })
           }
         })
-        console.log('total', temp.length)
         context.commit(Type.GET_TOTAL_VENDORS, temp.length)
         context.commit(Type.GET_ALL_VENDORS, temp)
       }

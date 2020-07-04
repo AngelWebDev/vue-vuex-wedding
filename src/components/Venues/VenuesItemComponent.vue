@@ -20,7 +20,7 @@
       </div>
       <div class="listing-info">
         <h3 class="title"><a href="listing-details.html">{{data.title}}</a></h3>
-        <p class="location"><i class="fa fa-map-marker"></i> {{data.address.address}}</p>
+        <p class="location"><i class="fa fa-map-marker"></i> {{data.address.city + ". " + data.address.address}}</p>
         <ul class="place-info">
           <li class="vendor-guest">
             <span>Venue Vendor</span>
@@ -51,9 +51,7 @@ export default {
     overflow: hidden;
   }
   .listing-media img {
-    width: 100%;
-    height: auto;
-    background-size: cover;
+    object-fit: cover;
   }
   @media (max-width: 1200px) {
     .listing-media {

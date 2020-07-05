@@ -58,7 +58,9 @@
                   :position="venues.latLng"
                 >
                   <h5>{{venues.title}}</h5>
-                  <p><b>ADDRESS: </b>{{venues.fullAddress}}</p>
+                  <label>{{venues.address}}</label><br/>
+                  <label>{{venues.city + '. ' + venues.state + '. ' + venues.postalCode}}</label><br/>
+                  <label>{{venues.country}}</label>
                 </gmap-info-window>
               </gmap-map>
             </div>
@@ -118,7 +120,8 @@ export default {
           latLng: { lat: parseFloat(item.address.latitude) || 0, lng: parseFloat(item.address.longitude) || 0 },
           title: item.title,
           id: item.businessId,
-          fullAddress: item.address.address + ', ' + item.address.city + ', ' + item.address.state + ', ' + item.address.postalCode + ', ' + item.address.country
+          address: item.address,
+          type: item.businessType
         }
       })
     },
@@ -137,7 +140,16 @@ export default {
     },
     openWindow (vendor) {
       this.isOpen = true
-      this.venues = vendor
+      this.venues = {
+        title: vendor.title,
+        address: vendor.address.address,
+        city: vendor.address.city,
+        country: vendor.address.country,
+        state: vendor.address.state,
+        postalCode: vendor.address.postalCode,
+        latLng: vendor.latLng,
+        type: vendor.type
+      }
     }
   }
 }

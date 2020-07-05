@@ -157,7 +157,16 @@ export default {
       this.cities = temp
     },
     submit () {
-      console.log('search', this.search)
+      const params = [
+        { key: 'categoryId', value: this.category },
+        { key: 'city', value: this.city },
+        { key: 'country', value: this.country },
+        { key: 'searchText', value: this.search },
+        { key: 'state', value: this.state },
+        { key: 'sortBy', value: this.sort }
+      ]
+
+      this.$store.dispatch(Type.GET_ALL_BUSINESS_BY_FILTER, params)
     },
     reset () {
       this.category = null
@@ -166,6 +175,7 @@ export default {
       this.search = null
       this.sort = null
       this.state = null
+      this.$store.dispatch(Type.GET_ALL_VENDORS)
     }
   }
 }

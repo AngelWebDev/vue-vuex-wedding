@@ -55,7 +55,8 @@ export default new Vuex.Store(
               bizCategories: item.bizCategories,
               rating: item.rating,
               title: item.title,
-              businessId: item.businessId
+              businessId: item.businessId,
+              bysinessType: item.businessType
             })
           }
         })
@@ -70,6 +71,37 @@ export default new Vuex.Store(
         }, [])
         context.commit(Type.GET_ALL_PLACES, res)
         context.commit(Type.SET_COUNTRIES, countries)
+      },
+      async [Type.GET_ALL_BUSINESS_BY_FILTER] (context, payload) {
+        var params = ''
+        await payload.forEach(item => {
+          if (item.value !== null) params += `${item.key}=${item.value}&`
+        })
+        const res = await Services.filteredBusiness(params)
+        let temp = []
+        let i = 0
+        res.map(item => {
+          if (item.images.length > 0) {
+            i++
+            temp.push({
+              id: i,
+              src: item.images[0].imageUrl,
+              specialMessage1: item.specialMessage1,
+              specialMessage2: item.specialMessage2,
+              featureType1: item.featureType1,
+              featureValue1: item.featureValue1,
+              priceRange: item.priceRange,
+              activeStatus: item.activeStatus,
+              address: item.address,
+              bizCategories: item.bizCategories,
+              rating: item.rating,
+              title: item.title,
+              businessId: item.businessId,
+              bysinessType: item.businessType
+            })
+          }
+        })
+        context.commit(Type.GET_ALL_VENDORS, temp)
       }
     }
   }

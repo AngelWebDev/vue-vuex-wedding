@@ -10,7 +10,11 @@ export default class Categories {
     return res.data
   }
   static async getAllPlaces () {
-    const res = await Api().get('business/places/all')
+    const res = await Api().get('/business/places/all')
+    return res.data
+  }
+  static async filteredBusiness (params) {
+    const res = await Api().get(`/business/vendor/filter?${params}`)
     return res.data
   }
 }

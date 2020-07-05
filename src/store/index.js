@@ -8,8 +8,10 @@ export default new Vuex.Store(
   {
     state: {
       categories: [],
-      vendors: [],
-      totalVendors: 0
+      countries: [],
+      places: [],
+      totalVendors: 0,
+      vendors: []
     },
     mutations: {
       [Type.GET_ALL_CATEGORIES] (state, payload) {
@@ -18,8 +20,14 @@ export default new Vuex.Store(
       [Type.GET_ALL_VENDORS] (state, payload) {
         state.vendors = payload
       },
+      [Type.GET_ALL_PLACES] (state, payload) {
+        state.places = payload
+      },
       [Type.GET_TOTAL_VENDORS] (state, payload) {
         state.totalVendors = payload
+      },
+      [Type.SET_COUNTRIES] (state, payload) {
+        state.countries = payload
       }
     },
     actions: {
@@ -53,6 +61,15 @@ export default new Vuex.Store(
         })
         context.commit(Type.GET_TOTAL_VENDORS, temp.length)
         context.commit(Type.GET_ALL_VENDORS, temp)
+      },
+      async [Type.GET_ALL_PLACES] (context) {
+        const res = await Services.getAllPlaces()
+        let countries = res.reduce((arr, item) => {
+          if (arr.indexOf(item.country) < 0) arr.push(item.country)
+          return arr
+        }, [])
+        context.commit(Type.GET_ALL_PLACES, res)
+        context.commit(Type.SET_COUNTRIES, countries)
       }
     }
   }

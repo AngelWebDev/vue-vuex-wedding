@@ -12,6 +12,7 @@
         <li>
           <div class="custom-control custom-checkbox checkbox-lg">
             <input type="checkbox" class="custom-control-input" id="must-haves1">
+
             <label class="custom-control-label" for="must-haves1">Exclusive Use</label>
           </div>
         </li>

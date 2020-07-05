@@ -16,7 +16,7 @@
                   >
                 </el-option>
               </el-select> -->
-              <a class="btn gray collapsed" onClick="vendor" role="button" data-toggle="collapse" href="#wadding-vanues-filter" aria-expanded="false" aria-controls="wadding-vanues-filter">Filter by</a>
+              <a class="btn gray collapsed" role="button" data-toggle="collapse" href="#wadding-vanues-filter" aria-expanded="false" aria-controls="wadding-vanues-filter">Filter by</a>
             </div>
             <div class="filter-bx collapse fade" id="wadding-vanues-filter">
               <form-component />
@@ -102,12 +102,6 @@ export default {
   },
   mounted () {
     this.getAllVendors()
-    // this.map = new window.google.maps.Map(this.$refs['map'], { zoom: 4 })
-    // // eslint-disable-next-line no-new
-    // new window.google.maps.Maker({
-    //   position: { lat: -25.344, lng: 131.036 },
-    //   map: this.map
-    // })
   },
   computed: {
     vendors () {

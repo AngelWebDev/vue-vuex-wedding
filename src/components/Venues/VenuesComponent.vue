@@ -36,21 +36,31 @@
         <div class="col-xl-4 col-lg-12 p-lr0 map-bx">
           <div class="sticky-top">
             <div class="map-box">
-              <GmapMap
+              <gmap-map
                 style="width: 33.33vw; height: 100vh"
                 :zoom="10"
                 :center="center"
                 icon="https://www.google.dk/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
                 ref="map"
                 >
-                <GmapMarker v-for="(marker, index) in markers"
+                <gmap-marker v-for="(marker, index) in markers"
                   :key="index"
                   :position="marker.latLng"
                   :title="marker.title"
+                  :clickable="true"
+                  :draggable="true"
+                  :id="marker.id"
+                  @click="openWindow(marker)"
                 />
-              </GmapMap>
-
-              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14445.871196953145!2d75.8417313!3d25.153677599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1560937937217!5m2!1sen!2sin" style="border:0;" allowfullscreen></iframe> -->
+                <gmap-info-window
+                  @closeclick="isOpen=false"
+                  :opened="isOpen"
+                  :position="venues.latLng"
+                >
+                  <h5>{{venues.title}}</h5>
+                  <p><b>ADDRESS: </b>{{venues.fullAddress}}</p>
+                </gmap-info-window>
+              </gmap-map>
             </div>
           </div>
         </div>
@@ -85,8 +95,9 @@ export default {
         {id: 2, name: 'Most Popular'},
         {id: 3, name: 'Recently Added'}
       ],
-      venues: [],
-      map: null
+      venues: {},
+      map: null,
+      isOpen: false
     }
   },
   mounted () {
@@ -109,10 +120,11 @@ export default {
     markers () {
       const vendors = this.$store.state.vendors
       return vendors.map(item => {
-        // console.log('item', item.address.latitude, item.address.longitude)
         return {
           latLng: { lat: parseFloat(item.address.latitude) || 0, lng: parseFloat(item.address.longitude) || 0 },
-          title: item.address.address
+          title: item.title,
+          id: item.businessId,
+          fullAddress: item.address.address + ', ' + item.address.city + ', ' + item.address.state + ', ' + item.address.postalCode + ', ' + item.address.country
         }
       })
     },
@@ -128,6 +140,10 @@ export default {
   methods: {
     getAllVendors () {
       this.$store.dispatch(Type.GET_ALL_VENDORS)
+    },
+    openWindow (vendor) {
+      this.isOpen = true
+      this.venues = vendor
     }
   }
 }

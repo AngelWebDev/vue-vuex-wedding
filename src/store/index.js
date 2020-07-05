@@ -46,7 +46,8 @@ export default new Vuex.Store(
               address: item.address,
               bizCategories: item.bizCategories,
               rating: item.rating,
-              title: item.title
+              title: item.title,
+              businessId: item.businessId
             })
           }
         })

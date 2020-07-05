@@ -20,7 +20,7 @@
       </div>
       <div class="listing-info">
         <h3 class="title"><a href="listing-details.html">{{data.title}}</a></h3>
-        <p class="location"><i class="fa fa-map-marker"></i> {{data.address.city + ". " + data.address.address}}</p>
+        <p class="location"><i class="fa fa-map-marker"></i> {{data.address.address + ". " + data.address.city}}</p>
         <ul class="place-info">
           <li class="vendor-guest">
             <span>Venue Vendor</span>

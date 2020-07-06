@@ -52,7 +52,7 @@
                         <br/>
                         <el-select name="category" v-model="category" multiple placeholder="Select Category">
                           <el-option
-                            v-for="(item, index) in categoryOptionLists"
+                            v-for="(item, index) in categories"
                             :key="index"
                             :label="item.title"
                             :value="item.categoryId">
@@ -107,6 +107,7 @@ import axios from 'axios'
 import Vue from 'vue'
 import Element from 'element-ui'
 import datepicker from 'vuejs-datepicker'
+import { Type } from '../store/mutation-type'
 Vue.use(Element)
 export default {
   name: 'AddPromotionComponent',
@@ -138,14 +139,17 @@ export default {
     }
   },
   mounted () {
-    axios.get('https://business-service-wise-koala-lz.cfapps.io/business/categories/all')
-      .then(res => {
-        if (res) this.categoryOptionLists = res.data
-        console.log(res)
-      })
-      .catch(e => console.log(e))
+    this.getAllCategories()
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
   },
   methods: {
+    getAllCategories () {
+      this.$store.dispatch(Type.GET_ALL_CATEGORIES)
+    },
     onSubmit: function () {
       if (!this.activeStatus || this.category.length === 0) {
         this.errors = {
@@ -175,7 +179,6 @@ export default {
       }
       axios.post('https://offers-service-fluent-crocodile-nv.cfapps.io/offers', data)
         .then(res => {
-          console.log(res)
           this.initData()
         })
         .catch(e => console.log(e))

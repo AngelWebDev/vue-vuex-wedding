@@ -8,7 +8,7 @@
               <div class="col-lg-2 col-md-2 col-sm-6 col-6">
                 <el-select
                 v-model="category"
-                placeholder="Select Category"
+                placeholder="Category"
                 class="el-select"
                 >
                   <el-option
@@ -22,7 +22,7 @@
               <div class="col-lg-2 col-md-2 col-sm-6 col-6">
                 <el-select
                 v-model="country"
-                placeholder="Select Country"
+                placeholder="Country"
                 class="el-select"
                 @change="setStates"
                 >
@@ -38,7 +38,7 @@
                 <el-select
                   :disabled="!country"
                   v-model="state"
-                  placeholder="Select State"
+                  placeholder="State"
                   class="el-select"
                   @change="setCities"
                   >
@@ -54,7 +54,7 @@
                 <el-select
                   :disabled="!state"
                   v-model="city"
-                  placeholder="Select City"
+                  placeholder="City"
                   class="el-select"
                   >
                   <el-option
@@ -66,10 +66,10 @@
                 </el-select>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-6 col-6">
-                <input type="text" class="form-control" placeholder="Search keywork.." v-model="search"/>
+                <input type="text" class="form-control" placeholder="Keyword.." v-model="search"/>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-6 col-6">
-                <el-select v-model="sort" placeholder="Select Sort" class="el-select">
+                <el-select v-model="sort" placeholder="Sort By" class="el-select">
                   <el-option
                     v-for="(item, index) in sorts"
                     :key="index"
@@ -144,7 +144,7 @@ export default {
           if (item.country === this.country && temp.indexOf(item.state) < 0) temp.push(item.state)
         })
       }
-      this.states = temp
+      this.states = ['All State', ...temp]
     },
     setCities () {
       const places = this.$store.state.places
@@ -154,15 +154,15 @@ export default {
           if (item.state === this.state && temp.indexOf(item.city) < 0) temp.push(item.city)
         })
       }
-      this.cities = temp
+      this.cities = ['All City', ...temp]
     },
     submit () {
       const params = [
         { key: 'categoryId', value: this.category },
-        { key: 'city', value: this.city },
+        { key: 'city', value: this.city !== 'All City' ? this.city : null },
         { key: 'country', value: this.country },
         { key: 'searchText', value: this.search },
-        { key: 'state', value: this.state },
+        { key: 'state', value: this.state !== 'All State' ? this.state : null },
         { key: 'sortBy', value: this.sort }
       ]
 

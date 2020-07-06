@@ -11,7 +11,8 @@ export default new Vuex.Store(
       countries: [],
       places: [],
       totalVendors: 0,
-      vendors: []
+      vendors: [],
+      zone1: []
     },
     mutations: {
       [Type.GET_ALL_CATEGORIES] (state, payload) {
@@ -28,6 +29,9 @@ export default new Vuex.Store(
       },
       [Type.SET_COUNTRIES] (state, payload) {
         state.countries = payload
+      },
+      [Type.SET_ZONE1] (state, payload) {
+        state.zone1 = payload
       }
     },
     actions: {
@@ -69,8 +73,14 @@ export default new Vuex.Store(
           if (arr.indexOf(item.country) < 0) arr.push(item.country)
           return arr
         }, [])
+        let zone1 = res.reduce((arr, item) => {
+          if (arr.indexOf(item.zone1) < 0) arr.push(item.zone1)
+          return arr
+        }, [])
+
         context.commit(Type.GET_ALL_PLACES, res)
         context.commit(Type.SET_COUNTRIES, countries)
+        context.commit(Type.SET_ZONE1, zone1)
       },
       async [Type.GET_ALL_BUSINESS_BY_FILTER] (context, payload) {
         var params = ''
@@ -101,6 +111,7 @@ export default new Vuex.Store(
             })
           }
         })
+        context.commit(Type.GET_TOTAL_VENDORS, temp.length)
         context.commit(Type.GET_ALL_VENDORS, temp)
       }
     }

@@ -492,7 +492,7 @@ export default {
         'bizCategories': bizCategories
       }
       if (!this.isShowEditButton) {
-        Api.post('/business', data)
+        Api().post('/business', data)
           .then(res => {
             if (res) {
               this.dialogVisible = true

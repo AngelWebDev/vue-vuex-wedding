@@ -22,7 +22,7 @@
 <script>
 import BannerComponent from '../components/details/BannerComponent'
 import VenuesDetailsComponent from '../components/details/VenuesDetailsComponent'
-import RequestModalComponent from '../components/RequestModalComponent'
+import RequestModalComponent from '../components/public/RequestModalComponent'
 import EditModalComponent from '../components/details/EditModalComponent'
 import ManagerModalComponent from '../components/details/ManagerModalComponent'
 export default {

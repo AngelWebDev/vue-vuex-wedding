@@ -97,7 +97,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import { Type } from '../store/mutation-type'
+import { Type } from '../../store/mutation-type'
 import Element from 'element-ui'
 Vue.use(Element)
 export default {

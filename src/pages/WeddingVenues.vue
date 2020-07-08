@@ -11,9 +11,9 @@
   </div>
 </template>
 <script>
-import SearchComponent from '../components/SearchComponent'
+import SearchComponent from '../components/public/SearchComponent'
 import VenuesComponent from '../components/Venues/VenuesComponent'
-import RequestModalComponent from '../components/RequestModalComponent'
+import RequestModalComponent from '../components/public/RequestModalComponent'
 export default {
   name: 'WeddingVenues',
   components: {

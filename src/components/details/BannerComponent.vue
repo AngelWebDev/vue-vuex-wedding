@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import SearchComponent from '../SearchComponent'
+import SearchComponent from '../public/SearchComponent'
 export default {
   name: 'BannerComponent',
   components: {

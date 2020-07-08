@@ -261,6 +261,7 @@ import Element from 'element-ui'
 import carousel from 'vue-owl-carousel'
 import { Type } from '../store/mutation-type'
 import Api from '../services/Api'
+import Offer from '../services/Offer'
 Vue.use(Element)
 export default {
   name: 'Business',
@@ -439,7 +440,7 @@ export default {
             }, 3000)
           }
         })
-      Api().get(`https://offers-service-fluent-crocodile-nv.cfapps.io/offers/business/${id}`)
+      Offer().get(`/offers/business/${id}`)
         .then(res => {
           if (res) {
             res.data.map(item => {

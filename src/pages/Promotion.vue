@@ -150,7 +150,7 @@ import Element from 'element-ui'
 import datepicker from 'vuejs-datepicker'
 import carousel from 'vue-owl-carousel'
 import { Type } from '../store/mutation-type'
-import Api from '../services/Api'
+import Offer from '../services/Offer'
 Vue.use(Element)
 export default {
   components: {
@@ -182,7 +182,7 @@ export default {
   mounted () {
     if (this.$route.params.id) {
       this.getPageData(this.$route.params.id)
-      Api().get(`/business/${this.$route.params.id}`)
+      Offer().get(`/offers/business/${this.$route.params.id}`)
         .then(res => {
           if (res) {
             res.data.map(item => {
@@ -211,7 +211,7 @@ export default {
   },
   methods: {
     getPageData: function (id) {
-      Api().get(`/${id}`)
+      Offer().get(`/offers/${id}`)
         .then(res => {
           if (res) {
             this.formData = res.data
@@ -261,7 +261,7 @@ export default {
         'images': this.photos
       }
       if (!this.flags.isEditShow) {
-        Api().post('', data)
+        Offer().post('/offers', data)
           .then(res => {
             if (res) {
               this.dialogVisible = true
@@ -271,7 +271,7 @@ export default {
           })
           .catch(e => console.log(e))
       } else {
-        Api().put(`/${this.formData.id}`, data)
+        Offer().put(`/offers/${this.formData.id}`, data)
           .then(res => {
             if (res) {
               this.dialogVisible = true
@@ -304,7 +304,7 @@ export default {
       this.flags.isEditShow = true
       this.errors.activeStatus = false
       if (id) {
-        Api().get(`/${id}`)
+        Offer().get(`/offers/${id}`)
           .then(res => {
             if (res.data) this.setData(res.data)
             this.$store.state.storedId = res.data.businessId

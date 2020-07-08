@@ -6,20 +6,20 @@
       <input type="text" class="form-control" placeholder="We’re looking for" id="datetimepicker4">
       <!-- Search Filter End -->
       <venues-component />
-      <modal-component />
+      <request-modal-component />
     </div>
   </div>
 </template>
 <script>
 import SearchComponent from '../components/SearchComponent'
 import VenuesComponent from '../components/Venues/VenuesComponent'
-import ModalComponent from '../components/ModalComponent'
+import RequestModalComponent from '../components/RequestModalComponent'
 export default {
   name: 'WeddingVenues',
   components: {
     SearchComponent,
     VenuesComponent,
-    ModalComponent
+    RequestModalComponent
   }
 }
 </script>

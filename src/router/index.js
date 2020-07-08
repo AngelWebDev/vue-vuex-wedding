@@ -4,6 +4,7 @@ import Business from '../pages/Business'
 import Home from '../pages/Home'
 import Promotion from '../pages/Promotion'
 import WeddingVenues from '../pages/WeddingVenues'
+import ListingDetails from '../pages/ListingDetails'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/venues',
       name: 'WeddingVenues',
       component: WeddingVenues
+    },
+    {
+      path: '/business/detail/:id',
+      name: 'ListingDetails',
+      component: ListingDetails
     }
   ]
 })

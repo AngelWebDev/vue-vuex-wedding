@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store(
   {
     state: {
+      businessDetail: {},
       categories: [],
       countries: [],
       places: [],
@@ -26,6 +27,9 @@ export default new Vuex.Store(
       },
       [Type.GET_TOTAL_VENDORS] (state, payload) {
         state.totalVendors = payload
+      },
+      [Type.GET_BUSINESS] (state, payload) {
+        state.businessDetail = payload
       },
       [Type.SET_COUNTRIES] (state, payload) {
         state.countries = payload
@@ -113,6 +117,10 @@ export default new Vuex.Store(
         })
         context.commit(Type.GET_TOTAL_VENDORS, temp.length)
         context.commit(Type.GET_ALL_VENDORS, temp)
+      },
+      async [Type.GET_BUSINESS] (context, id) {
+        const res = await Services.getBusiness(id)
+        context.commit(Type.GET_BUSINESS, res)
       }
     }
   }

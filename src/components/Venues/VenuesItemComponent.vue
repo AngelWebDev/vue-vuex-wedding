@@ -2,19 +2,13 @@
   <div class="col-lg-4 col-md-6 col-sm-6">
     <div class="listing-bx listing-sm">
       <div class="listing-media">
-        <img :src="data.src" alt="">
+        <img :src="data.src" alt="" @click="onClick(data.businessId)">
         <div class="offer">
           <div class="event available" v-if="data.specialMessage1">{{data.specialMessage1}}</div>
           <div class="event upcoming" v-if="data.specialMessage2">{{data.specialMessage2}}</div>
         </div>
         <div class="media-info">
-          <ul class="featured-star">
-            <li v-if="data.rating >= 1"><i class="fa fa-star"></i></li>
-            <li v-if="data.rating >= 2"><i class="fa fa-star"></i></li>
-            <li v-if="data.rating >= 3"><i class="fa fa-star"></i></li>
-            <li v-if="data.rating >= 4"><i class="fa fa-star"></i></li>
-            <li v-if="data.rating >= 5"><i class="fa fa-star"></i></li>
-          </ul>
+          <star-component :rating="data.rating" />
           <a class="like-btn" href="javascript:void(0)"><i class="fa fa-heart-o"></i></a>
         </div>
       </div>
@@ -37,10 +31,19 @@
   </div>
 </template>
 <script>
+import StarComponent from '../public/StarComponent'
 export default {
   name: 'VenuesItemComponent',
+  components: {
+    StarComponent
+  },
   props: {
     data: Object
+  },
+  methods: {
+    onClick (id) {
+      this.$router.push(`/business/detail/${id}`)
+    }
   }
 }
 </script>

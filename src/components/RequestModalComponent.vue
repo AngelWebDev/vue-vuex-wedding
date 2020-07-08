@@ -140,6 +140,6 @@
 </template>
 <script>
 export default {
-  name: 'ModalComponent'
+  name: 'RequestModalComponent'
 }
 </script>

@@ -23,7 +23,7 @@
         <li><a href="/business"><i class="la la-user"></i>Business</a></li>
         <li><a href="/offers"><i class="la la-money"></i>Promotion</a></li>
         <li><a href="/venues"><i class="la la-check-square"></i>Wedding Venues</a></li>
-        <li><a href="planner-shortlist.html"><i class="la la-file-text-o"></i>Shortlist</a></li>
+        <li><a href="/listing_details"><i class="la la-file-text-o"></i>Listing Details</a></li>
         <li><a href="planner-shortlist.html"><i class="la la-user-plus"></i>Booked Suppliers</a></li>
         <li><a href="planner-advice.html"><i class="la la-lightbulb-o"></i>Advice</a></li>
         <li><a href="scrapbook.html"><i class="la la-laptop"></i>Scrapbook</a></li>

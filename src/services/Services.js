@@ -17,4 +17,8 @@ export default class Categories {
     const res = await Api().get(`/business/vendor/filter?${params}`)
     return res.data
   }
+  static async getBusiness (params) {
+    const res = await Api().get(`/business/${params}`)
+    return res.data
+  }
 }

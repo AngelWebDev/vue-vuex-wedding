@@ -504,7 +504,7 @@ export default {
           .catch(e => {
             if (e) {
               this.dialogVisible = true
-              this.message = 'Title already exist.'
+              this.message = e.message || 'Title already exist.'
             }
           })
       } else {

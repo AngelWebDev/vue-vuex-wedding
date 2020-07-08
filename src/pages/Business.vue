@@ -443,8 +443,10 @@ export default {
       Offer().get(`/offers/business/${id}`)
         .then(res => {
           if (res) {
+            console.log(res.data)
             res.data.map(item => {
               item.images.map(image => {
+                console.log('image', image)
                 this.images.push({
                   id: item.id,
                   ...image

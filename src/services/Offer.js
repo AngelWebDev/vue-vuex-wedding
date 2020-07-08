@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default() => {
   return axios.create({
-    baseURL: `https://offers-service-fluent-crocodile-nv.cfapps.io`,
+    baseURL: `https://offers-service-brash-wombat-fl.cfapps.io`,
     withCredentials: false,
     headers: {
       'Accept': 'application/json',

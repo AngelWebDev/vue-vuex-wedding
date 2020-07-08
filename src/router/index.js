@@ -12,7 +12,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '*',
       name: 'Home',
       component: Home
     },
@@ -22,7 +22,17 @@ export default new Router({
       component: Business
     },
     {
+      path: '/business/:id',
+      name: 'Business',
+      component: Business
+    },
+    {
       path: '/offers',
+      name: 'Promotion',
+      component: Promotion
+    },
+    {
+      path: '/offers/:id',
       name: 'Promotion',
       component: Promotion
     },

@@ -19,10 +19,10 @@
             <div class="featured-lists">
               <ul class="navbar">
                 <li><a href="#price" class="scroll nav-link"><i class="la la-money"></i>{{details.priceRange}} for Venue Hire</a></li>
-                <li><a href="#upto" class="scroll nav-link"><i class="la la-users"></i>Up to 200</a></li>
-                <li><a href="#upto" class="scroll nav-link"><i class="la la-bed"></i>9 Bedrooms</a></li>
-                <li><a href="#upto" class="scroll nav-link"><i class="la la-diamond"></i>Exclusive Use</a></li>
-                <li><a href="#upto" class="scroll nav-link"><i class="la la-pencil"></i>Wedding Licence</a></li>
+                <li><a href="#upto" class="scroll nav-link"><i class="la la-users"></i>{{details.featureValue1}}</a></li>
+                <li><a href="#upto" class="scroll nav-link"><i class="la la-bed"></i>{{details.specialMessage1}}</a></li>
+                <li><a href="#upto" class="scroll nav-link"><i class="la la-diamond"></i>{{details.specialMessage2}}</a></li>
+                <!-- <li><a href="#upto" class="scroll nav-link"><i class="la la-pencil"></i>Wedding Licence</a></li> -->
               </ul>
             </div>
             <div class="featured-media">
@@ -34,47 +34,8 @@
           </div>
           <a href="javascript:;" data-toggle="modal" data-target="#exampleModal2" class="btn btn-block gradient green m-b30">Request a quote</a>
           <h5 class="text-quote">
-            Matt Wing is a professional and talented photographer who has an eye for the special moments in your day that could easily go unseen by other photographers. His gorgeous photography speaks for itself!
+            {{details.shortDescription}}
           </h5>
-          <div class="row sp20">
-            <div class="col-md-6 m-b20">
-              <div class="card-bx red h100" data-toggle="modal" data-target="#deal">
-                <div class="inner">
-                  <span class="tag-btn">Exclusive Wedding Manager Deal</span>
-                  <h6 class="title">Wedding Manager Couple Discount</h6>
-                  <p>SENSATIONAL special offer for all remaining 2019 weekend dates:  £6,199 (incl. VAT) catering for 80 day guests/a total of 100 evening guests; DJ</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 m-b20">
-              <div class="card-bx blue h100" data-toggle="modal" data-target="#deal">
-                <div class="inner">
-                  <span class="tag-btn">Wedding Manager Deal</span>
-                  <h6 class="title">Seasonal Offer Available</h6>
-                  <p>Save £800</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 m-b20">
-              <div class="card-bx green h100" data-toggle="modal" data-target="#deal">
-                <div class="inner">
-                  <span class="tag-btn">Exclusive Wedding Manager Deal</span>
-                  <h6 class="title">Wedding Manager Couple Discount</h6>
-                  <p>Save £800</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 m-b20">
-              <div class="card-bx yellow h100" data-toggle="modal" data-target="#deal">
-                <div class="inner">
-                  <span class="tag-btn">Exclusive Wedding Manager Deal</span>
-                  <h6 class="title">Wedding Manager Couple Discount</h6>
-                  <p>Save £800</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Pricing & Costs -->
           <h5 class="details-title" id="price">Pricing & Costs</h5>
           <div class="pricing-costs-box">

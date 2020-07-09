@@ -425,7 +425,7 @@ export default {
               'postalCode': res.data.address.postalCode,
               'latitude': res.data.address.latitude,
               'longitude': res.data.address.longitude,
-              'bizCategories': res.data.bizCategories,
+              'bizCategories': res.data.bizCategories.map(item => item.categoryId),
               'images': res.data.images
             }
           }
@@ -472,7 +472,9 @@ export default {
         }
         return
       }
-      const bizCategories = this.formData.bizCategories.map(title => ({ businessId: 0, categoryId: this.categoryOptionLists.find(c => c.title === title).categoryId }))
+      const bizCategories = this.formData.bizCategories.map(title => {
+        return { businessId: title.businessId, categoryId: this.categoryOptionLists.find(c => c.title === title).categoryId }
+      })
       let data = {
         'title': this.formData.title,
         'businessType': 'VENDOR',
@@ -509,7 +511,7 @@ export default {
             }
           })
       } else {
-        Api.put(`/business/${this.$route.params.id}`, data)
+        Api().put(`/business/${this.$route.params.id}`, data)
           .then(res => {
             if (res) {
               this.dialogVisible = true

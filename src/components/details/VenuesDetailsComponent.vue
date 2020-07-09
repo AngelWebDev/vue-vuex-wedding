@@ -7,7 +7,7 @@
           <div class="details-media-bx">
             <div class="featured-info">
               <h4 class="title">{{details.title}}</h4>
-              <p class="address">
+              <p class="address" v-if="details.address">
                 <i class="fa fa-map-marker m-r5 text-primary"></i>
                 {{details.address.address}}.
                 {{details.address.city}}.
@@ -27,7 +27,7 @@
             </div>
             <div class="featured-media">
               <div class="featured-gallery">
-                <img :src="details.images[0].imageUrl" alt=""/>
+                <img :src="details.images[0].imageUrl" alt="" v-if="details.images"/>
                 <button class="lightGalleryButton"><i class="fa fa-picture-o"></i> View Photos (12)</button>
               </div>
             </div>
@@ -135,16 +135,25 @@
         </div>
         <!-- Side bar END -->
       </div>
+      <image-item-component :businessId="this.id" />
+      <Carousel3DComponent />
+      <CarouselComponent />
     </div>
   </div>
 </template>
 <script>
 import { Type } from '../../store/mutation-type'
 import StarComponent from '../public/StarComponent'
+import ImageItemComponent from '../public/ImageItemComponent'
+import Carousel3DComponent from '../public/Carousel3DComponent'
+import CarouselComponent from '../public/CarouselComponent'
 export default {
   name: 'VenuesDetailsComponent',
   components: {
-    StarComponent
+    StarComponent,
+    ImageItemComponent,
+    Carousel3DComponent,
+    CarouselComponent
   },
   props: {
     id: String

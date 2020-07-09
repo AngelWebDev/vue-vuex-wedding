@@ -164,35 +164,7 @@
     </div>
     <!-- Our Services -->
     <section class="section-full bg-white content-inner about-us">
-      <div class="container">
-        <div class="form-title"><h2 class="title-purple">Current Promotions by Vendor</h2></div>
-        <hr/>
-          <div class="row">
-            <div class="col-sm-12" v-if="this.errors.isImageData">
-              <carousel :autoplay="true" :nav="false" :items="3">
-                <div class="item" v-for="(image, index) in this.images" :key="index">
-                  <div class="shadow-effect">
-                    <div class="listing-bx m-b20 expert-advice">
-                      <div class="listing-media">
-                        <img :src="image.imageUrl" alt="" @click="moveToOffer(image.id)">
-                        <div class="media-info">
-                          <a class="like-btn"><i class="fa fa-heart-o"></i></a>
-                        </div>
-                      </div>
-                      <div class="listing-info">
-                        <h3 class="title"><a>{{image.imageTitle}}</a></h3>
-                        <a class="btn-link">{{image.imageType}}</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </carousel>
-            </div>
-            <div class="col-sm-12" v-if="!this.errors.isImageData">
-              <p> There is no data </p>
-            </div>
-          </div>
-        </div>
+      <image-item-component :businessId="$route.params.id" />
     </section>
     <!-- Our Services -->
     <!-- contact area -->
@@ -258,15 +230,14 @@
 <script>
 import Vue from 'vue'
 import Element from 'element-ui'
-import carousel from 'vue-owl-carousel'
 import { Type } from '../store/mutation-type'
 import Api from '../services/Api'
-import Offer from '../services/Offer'
+import ImageItemComponent from '../components/public/ImageItemComponent'
 Vue.use(Element)
 export default {
   name: 'Business',
   components: {
-    carousel
+    ImageItemComponent
   },
   data () {
     return {
@@ -296,7 +267,6 @@ export default {
       message: '',
       isShowEditButton: false,
       businessId: 0,
-      images: [],
       tableData: [],
       nav_tab: [
         {id: 1, class: 'nav-item nav-link active', data_toggle: 'tab', role: 'tab', aria_controls: 'nav1', aria_selected: 'true', title: 'BOOKED', number: 0},
@@ -389,9 +359,6 @@ export default {
         'images': []
       }
     },
-    moveToOffer: function (id) {
-      this.$router.push(`/offers/${id}`)
-    },
     getTableData: function (category) {
       if (this.$route.params.id) {
         Api().get(`/business/${this.$route.params.id}/inquiries/${category}`)
@@ -439,23 +406,6 @@ export default {
               this.$router.push(`/business`)
             }, 3000)
           }
-        })
-      Offer().get(`/offers/business/${id}`)
-        .then(res => {
-          if (res) {
-            res.data.map(item => {
-              this.images.push({
-                id: item.id,
-                imageUrl: item.images[0].imageUrl,
-                imageTitle: item.title,
-                imageType: item.notes
-              })
-            })
-            this.errors.isImageData = true
-          }
-        })
-        .catch(error => {
-          if (error) this.errors.isImageData = false
         })
     },
     onSubmit: function () {

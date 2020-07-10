@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store(
   {
     state: {
+      allInqueries: [],
       businessDetail: {},
       categories: [],
       countries: [],
@@ -18,6 +19,9 @@ export default new Vuex.Store(
     mutations: {
       [Type.GET_ALL_CATEGORIES] (state, payload) {
         state.categories = payload
+      },
+      [Type.GET_ALL_INQUERIES] (state, payload) {
+        state.allInqueries = payload
       },
       [Type.GET_ALL_VENDORS] (state, payload) {
         state.vendors = payload
@@ -42,6 +46,10 @@ export default new Vuex.Store(
       async [Type.GET_ALL_CATEGORIES] (context) {
         const res = await Services.getAllCategories()
         context.commit(Type.GET_ALL_CATEGORIES, res)
+      },
+      async [Type.GET_ALL_INQUERIES] (context, id) {
+        const res = await Services.getAllInqueries(id)
+        context.commit(Type.GET_ALL_INQUERIES, res)
       },
       async [Type.GET_ALL_VENDORS] (context) {
         const res = await Services.getAllVendors()

@@ -169,7 +169,8 @@
     <!-- Our Services -->
     <!-- contact area -->
     <section id="tabs" class="project-tab">
-      <div class="container">
+      <business-table-component :id="this.$route.params.id" />
+      <!-- <div class="container">
         <div class="form-title"><h2 class="title-purple">Business Inquiries</h2></div>
         <hr/>
         <div class="row">
@@ -222,7 +223,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </section>
     <!-- contact area end -->
   </div>
@@ -233,11 +234,13 @@ import Element from 'element-ui'
 import { Type } from '../store/mutation-type'
 import Api from '../services/Api'
 import ImageItemComponent from '../components/public/ImageItemComponent'
+import BusinessTableComponent from '../components/business/BusinessTableComponent'
 Vue.use(Element)
 export default {
   name: 'Business',
   components: {
-    ImageItemComponent
+    ImageItemComponent,
+    BusinessTableComponent
   },
   data () {
     return {
@@ -260,71 +263,17 @@ export default {
       errors: {
         status: false,
         category: false,
-        isTable: false,
         imageData: false
       },
       dialogVisible: false,
       message: '',
       isShowEditButton: false,
-      businessId: 0,
-      tableData: [],
-      nav_tab: [
-        {id: 1, class: 'nav-item nav-link active', data_toggle: 'tab', role: 'tab', aria_controls: 'nav1', aria_selected: 'true', title: 'BOOKED', number: 0},
-        {id: 2, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav2', aria_selected: 'false', title: 'INQUIRY', number: 0},
-        {id: 3, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav3', aria_selected: 'false', title: 'ALL', number: 0}
-      ]
+      businessId: 0
     }
   },
   mounted () {
     if (this.$route.params.id) {
       this.getPageData(this.$route.params.id)
-      Api().get(`/business/${this.$route.params.id}/inquiries/BOOKED`)
-        .then(res => {
-          this.tableData = res.data
-          this.errors.isTable = true
-          this.nav_tab = this.nav_tab.map(item => {
-            if (item.title === 'BOOKED') {
-              return {
-                ...item,
-                number: res.data.length
-              }
-            }
-            return item
-          })
-        })
-        .catch(error => {
-          if (error) this.errors.isTable = false
-        })
-      Api().get(`/business/${this.$route.params.id}/inquiries/INQUIRY`)
-        .then(res => {
-          this.nav_tab = this.nav_tab.map(item => {
-            if (item.title === 'INQUIRY') {
-              return {
-                ...item,
-                number: res.data.length
-              }
-            }
-            return item
-          })
-        })
-        .catch(error => {
-          if (error) this.errors.isTable = false
-        })
-      Api().get(`/business/${this.$route.params.id}/inquiries/ALL`)
-        .then(res => {
-          this.nav_tab = this.nav_tab.map(item => {
-            if (item.title === 'ALL') {
-              return {
-                ...item,
-                number: res.data.length
-              }
-            }
-            return item
-          })
-        })
-        .catch(error => {
-          if (error) this.errors.isTable = false
-        })
       this.isShowEditButton = true
     } else {
       this.initFormData()
@@ -357,18 +306,6 @@ export default {
         'longitude': '',
         'bizCategories': [],
         'images': []
-      }
-    },
-    getTableData: function (category) {
-      if (this.$route.params.id) {
-        Api().get(`/business/${this.$route.params.id}/inquiries/${category}`)
-          .then(res => {
-            this.tableData = res.data
-            this.errors.isTable = true
-          })
-          .catch(error => {
-            if (error) this.errors.isTable = false
-          })
       }
     },
     getPageData: function (id) {

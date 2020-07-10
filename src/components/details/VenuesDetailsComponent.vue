@@ -68,21 +68,20 @@
               <div class="title-head"><h5 class="title">Send a message to Calderfields Golf and Country Club</h5></div>
               <small class="small-bx">We will pass your details to the supplier so they can get back to you with a proposal.</small>
               <ul class="vender-profile-list">
-                <li><a data-toggle="modal" data-target="#edit-details" class="btn edit" href="javascript:;">Edit <i class="fa fa-pencil"></i></a></li>
-                <li><strong>Email:</strong> example@gmail.com</li>
-                <li><strong>Phone:</strong> +91 123 456 7890</li>
-                <li><strong>Names:</strong> Deepak Gaur &amp; deepika gaur</li>
-                <li><strong>Ideal date:</strong> 25th june 2019 </li>
-                <li><strong>Estimated guests:</strong> 80</li>
+                <li><a data-toggle="modal" data-target="#edit-details" class="btn edit">Edit <i class="fa fa-pencil"></i></a></li>
+                <li><strong>Email:</strong> {{user.email}}</li>
+                <li><strong>Phone:</strong> {{user.phone}}</li>
+                <li><strong>Names:</strong> {{user.userName}}</li>
+                <li><strong>Inquiry date:</strong> {{user.inquiryDate}}</li>
+                <li><strong>Estimated guests:</strong> {{user.estimatedGuest}}</li>
+                <li><strong>Estimated budget:</strong> {{user.estimatedBudget}}</li>
               </ul>
               <div class="text-message">
-                <form>
-                  <textarea class="form-control">Hi,
-                    We're interested in your services! Please could you share your availability around our date, plus any additional information?
-                    Thank you!
+                <div>
+                  <textarea class="form-control" v-model="user.notes">
                   </textarea>
-                </form>
-                <a href="#" class="btn btn-block gradient green">Request brochure</a>
+                </div>
+                <a @click="submit" class="btn btn-block gradient green">Contact Business</a>
               </div>
             </div>
           </aside>
@@ -139,6 +138,7 @@
       <Carousel3DComponent />
       <CarouselComponent />
     </div>
+    <EditModalComponent v-if="isShowModal" />
   </div>
 </template>
 <script>
@@ -147,23 +147,75 @@ import StarComponent from '../public/StarComponent'
 import ImageItemComponent from '../public/ImageItemComponent'
 import Carousel3DComponent from '../public/Carousel3DComponent'
 import CarouselComponent from '../public/CarouselComponent'
+import EditModalComponent from './EditModalComponent'
+import Api from '../../services/Api'
 export default {
   name: 'VenuesDetailsComponent',
   components: {
     StarComponent,
     ImageItemComponent,
     Carousel3DComponent,
-    CarouselComponent
+    CarouselComponent,
+    EditModalComponent
   },
   props: {
     id: String
   },
+  data () {
+    return {
+      isShowModal: false,
+      user: {
+        email: '',
+        estimatedBudget: 0,
+        estimatedGuest: 0,
+        eventId: '',
+        inquiryDate: '',
+        notes: '',
+        personName: '',
+        phone: '',
+        programEndDate: '',
+        programStartDate: '',
+        programType: '',
+        address: '',
+        userName: ''
+      }
+    }
+  },
   mounted () {
     this.$store.dispatch(Type.GET_BUSINESS, this.id)
+    this.setUserData()
   },
   computed: {
     details () {
       return this.$store.state.businessDetail
+    }
+  },
+  methods: {
+    setUserData () {
+      this.user = {
+        email: localStorage.getItem('email') || '',
+        estimatedBudget: parseInt(localStorage.getItem('estimatedBudget')) || '',
+        estimatedGuest: parseInt(localStorage.getItem('estimatedGuest')) || '',
+        inquiryDate: localStorage.getItem('inquiryDate') || '',
+        notes: localStorage.getItem('notes') || '',
+        personName: localStorage.getItem('personName') || '',
+        phone: localStorage.getItem('phone') || '',
+        programEndDate: localStorage.getItem('programEndDate') || '',
+        programStartDate: localStorage.getItem('programStartDate') || '',
+        programType: localStorage.getItem('programType') || '',
+        address: localStorage.getItem('address') || '',
+        userName: ''
+      }
+    },
+    submit () {
+      const payload = {
+        ...this.user,
+        businessId: parseInt(this.id),
+        status: 'INQUIRY',
+        eventId: 0
+      }
+
+      Api().post('/business/inquiries', payload)
     }
   }
 }

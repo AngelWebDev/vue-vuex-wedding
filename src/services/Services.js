@@ -5,6 +5,10 @@ export default class Categories {
     const res = await Api().get('/business/categories/all')
     return res.data
   }
+  static async getAllInqueries (id) {
+    const res = await Api().get(`/business/${id}/inquiries/ALL`)
+    return res.data
+  }
   static async getAllVendors () {
     const res = await Api().get('/business/VENDOR/all')
     return res.data

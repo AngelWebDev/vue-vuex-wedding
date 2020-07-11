@@ -64,11 +64,19 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.content {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  background: white;
+  opacity: 0.7;
+}
 .content p {
-  color: grey;
+  color: black;
   padding: 2px;
   margin: 2px;
-  text-align: left;
+  text-align: center;
+  font-size: 15px;
 }
 .content h3 {
   padding: 2px;

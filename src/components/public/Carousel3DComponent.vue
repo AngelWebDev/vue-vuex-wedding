@@ -9,7 +9,7 @@
               <img :src="slide.src" />
             </div>
             <figcaption>
-              <h3>{{slide.category}}</h3>
+              <h5>{{slide.category}}</h5>
               <p>{{slide.city}}.{{slide.state}}</p>
             </figcaption>
           </figure>
@@ -34,7 +34,7 @@ export default {
 <style scoped>
   .image-wrapper {
     width: 100%;
-    height: 15vw;
+    height: 40vh;
     overflow: hidden;
   }
   .image-wrapper img {
@@ -42,11 +42,25 @@ export default {
     height: 100%;
     object-fit: cover;
   }
-  h3 {
+  h5 {
     padding: 2px;
     margin: 2px;
+    text-align: center;
   }
   p {
     margin-left: 10px;
+    font-size: 15px;
+    text-align: center;
+  }
+  figcaption {
+    width: 100%;
+    height: 6vh;
+    background: white;
+    position: absolute;
+    bottom: 0px;
+    opacity: 0.5;
+  }
+  figcaption:hover {
+    opacity: 0.8;
   }
 </style>

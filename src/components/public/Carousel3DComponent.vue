@@ -1,16 +1,16 @@
 <template>
   <div class="container">
-    <div class="form-title"><h2 class="title-purple">Business Competition</h2></div>
+    <div class="form-title"><h2 class="title-purple">More Businesses for {{category}} in {{city}}</h2></div>
     <div class="row" v-if="data.length > 0">
       <carousel-3d :autoplay="true" :controls-visible="true" :clickable="false">
         <slide v-for="(slide, i) in data" :key="i" :index="i">
           <figure>
             <div class="image-wrapper">
-              <img :src="slide.src" />
+              <img :src="slide.src" @click="moveToOther(slide.id)" v-if="slide.id"/>
+              <img :src="slide.src" v-else/>
             </div>
             <figcaption>
-              <h5>{{slide.category}}</h5>
-              <p>{{slide.city}}.{{slide.state}}</p>
+              <h5>{{slide.title}}</h5>
             </figcaption>
           </figure>
         </slide>
@@ -27,7 +27,14 @@ export default {
     Slide
   },
   props: {
-    data: Array
+    data: Array,
+    category: String,
+    city: String
+  },
+  methods: {
+    moveToOther (id) {
+      this.$router.push(`/business/${id}`)
+    }
   }
 }
 </script>

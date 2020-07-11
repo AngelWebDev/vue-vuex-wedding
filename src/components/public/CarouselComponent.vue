@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="form-title"><h2 class="title-purple">Offers Competition</h2></div>
+    <div class="form-title"><h2 class="title-purple">Offers / Promotions from Other Businesses</h2></div>
     <div class="row" v-if="data.length > 0">
       <carousel
         :centerMode="false"
@@ -66,6 +66,7 @@ export default {
 }
 .content {
   width: 100%;
+  height: 30px;
   position: absolute;
   bottom: 0px;
   background: white;
@@ -74,9 +75,13 @@ export default {
 .content p {
   color: black;
   padding: 2px;
-  margin: 2px;
+  margin: 2px 20px;
   text-align: center;
   font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: auto;
 }
 .content h3 {
   padding: 2px;

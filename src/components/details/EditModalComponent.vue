@@ -55,8 +55,17 @@
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label class="label-title">Program Type*</label>
-                <input type="text" class="form-control" placeholder="Wedding" v-model="user.programType">
+                <label class="label-title">Program Type*</label><br/>
+                <select class="select" name="programType" v-model="user.programType" placeholder="Select Program Type">
+                  <option
+                    class="optionItem"
+                    v-for="item in types"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name">
+                    {{item.name}}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="col-lg-6">
@@ -89,10 +98,22 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import Element from 'element-ui'
+import { Type } from '../../store/mutation-type'
+Vue.use(Element)
 export default {
   name: 'EditModalComponent',
   data () {
     return {
+      status: '',
+      types: [
+        {id: 1, name: 'ANNIVERSARY'},
+        {id: 2, name: 'BABY SHOWER'},
+        {id: 3, name: 'BIRTHDAY'},
+        {id: 4, name: 'WEDDING'},
+        {id: 5, name: 'OTHER'}
+      ],
       user: {
         businessId: '',
         email: '',
@@ -112,6 +133,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch(Type.GET_ALL_CATEGORIES)
     this.user = {
       email: localStorage.getItem('email') || '',
       estimatedBudget: localStorage.getItem('estimatedBudget') || '',
@@ -125,6 +147,11 @@ export default {
       programType: localStorage.getItem('programType') || '',
       address: localStorage.getItem('address') || '',
       userName: localStorage.getItem('userName') || ''
+    }
+  },
+  computed: {
+    categoryOptionLists () {
+      return this.$store.state.categories
     }
   },
   methods: {
@@ -145,3 +172,22 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .select {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-color: #ced4da !important;
+    background: white;
+    border-radius: 5px;
+  }
+  .optionItem {
+    padding: 10px !important;
+  }
+  .select .optionItem:hover {
+    background: #ced4da;
+  }
+  .select:focus, :selected {
+    border: 1px solid #fd60a2;
+  }
+</style>

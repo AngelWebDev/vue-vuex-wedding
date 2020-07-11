@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="form-title"><h2 class="title-purple">Offers Competition</h2></div>
-    <div class="row" v-if="slides.length > 0">
-      <carousel v-show="slides.length"
+    <div class="row" v-if="data.length > 0">
+      <carousel
         :centerMode="false"
         :perPage="3"
         :navigationEnabled="true"
@@ -10,9 +10,13 @@
         paginationPosition="bottom"
         class="m-4"
         zIndex= "100 !important">
-        <slide v-for="(slide, i) in slides" :key="i">
-          <div class="listing-media" style="width: 100%;">
+        <slide v-for="(slide, i) in data" :key="i">
+          <div class="listing-media">
             <img :src="slide.src" />
+          </div>
+          <div class="content">
+            <!-- <h3>{{slide.title}}</h3> -->
+            <p>{{slide.notes}}</p>
           </div>
         </slide>
       </carousel>
@@ -30,30 +34,8 @@ export default {
     Carousel,
     Slide
   },
-  data () {
-    return {
-      slides: [{
-        title: 'Seungri\'s Alleged',
-        src: 'https://www.essensedesigns.com/wp-content/uploads/2018/11/1066-2-wpcf_530x845.jpg',
-        desc: '1 dummy description text here...'
-      }, {
-        title: 'Emma',
-        src: 'https://www.essensedesigns.com/wp-content/uploads/2018/11/1066-2-wpcf_530x845.jpg',
-        desc: '2 dummy description text here...'
-      }, {
-        title: 'Kim Tae Hee',
-        src: 'https://www.essensedesigns.com/wp-content/uploads/2018/11/1066-2-wpcf_530x845.jpg',
-        desc: '3 dummy description text here...'
-      }, {
-        title: 'Kate',
-        src: 'https://www.essensedesigns.com/wp-content/uploads/2018/11/1066-2-wpcf_530x845.jpg',
-        desc: '4 dummy description text here...'
-      }, {
-        title: 'Sherry',
-        src: 'https://www.essensedesigns.com/wp-content/uploads/2018/11/1066-2-wpcf_530x845.jpg',
-        desc: '5 dummy description text here...'
-      }]
-    }
+  props: {
+    data: Array
   }
 }
 </script>
@@ -65,21 +47,32 @@ export default {
 }
 .listing-media {
   margin: 0px;
-  height: 30vh;
+  height: 15vw;
   overflow: hidden;
 }
 .VueCarousel-slide {
-      position: relative;
-      color: #fff;
-      font-size: 24px;
-      text-align: center;
-      min-height: 100px;
-   }
+  position: relative;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  min-height: 100px;
+}
 
-   .label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-   }
+.label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.content p {
+  color: grey;
+  padding: 2px;
+  margin: 2px;
+  text-align: left;
+}
+.content h3 {
+  padding: 2px;
+  margin: 2px;
+  text-align: left;
+}
 </style>

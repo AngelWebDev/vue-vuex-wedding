@@ -135,10 +135,9 @@
         <!-- Side bar END -->
       </div>
       <image-item-component :businessId="this.id" />
-      <Carousel3DComponent />
-      <CarouselComponent />
+      <Carousel3DComponent :data="threeData" />
+      <CarouselComponent :data="carouselData" />
     </div>
-    <EditModalComponent v-if="isShowModal" />
   </div>
 </template>
 <script>
@@ -149,6 +148,7 @@ import Carousel3DComponent from '../public/Carousel3DComponent'
 import CarouselComponent from '../public/CarouselComponent'
 import EditModalComponent from './EditModalComponent'
 import Api from '../../services/Api'
+import Offer from '../../services/Offer'
 export default {
   name: 'VenuesDetailsComponent',
   components: {
@@ -164,6 +164,8 @@ export default {
   data () {
     return {
       isShowModal: false,
+      threeData: [],
+      carouselData: [],
       user: {
         email: '',
         estimatedBudget: 0,
@@ -181,9 +183,11 @@ export default {
       }
     }
   },
-  mounted () {
-    this.$store.dispatch(Type.GET_BUSINESS, this.id)
-    this.setUserData()
+  async mounted () {
+    await this.$store.dispatch(Type.GET_BUSINESS, this.id)
+    await this.setUserData()
+    await this.getThreeData()
+    await this.getCarouselData()
   },
   computed: {
     details () {
@@ -191,6 +195,47 @@ export default {
     }
   },
   methods: {
+    async getThreeData () {
+      const business = this.$store.state.businessDetail
+      const categoryId = business.bizCategories.length > 0 && business.bizCategories[0].categoryId
+      const city = business.address.city
+      const state = business.address.state
+      const country = business.address.country
+      var params = ''
+      if (categoryId) {
+        params += `categoryId=${categoryId}&`
+      }
+      if (city) {
+        params += `city=${city}&`
+      }
+      if (state) {
+        params += `state=${state}&`
+      }
+      if (country) {
+        params += `country=${country}`
+      }
+      await Api().get(`/business/VENDOR/filter?${params}`).then(res => {
+        res.data.map(item => {
+          this.threeData.push({
+            src: item.images.length > 0 ? item.images[0].imageUrl : '',
+            category: item.bizCategories.length > 0 ? item.bizCategories[0].categoryId : '',
+            city: item.address.city || '',
+            state: item.address.state || ''
+          })
+        })
+      })
+    },
+    async getCarouselData () {
+      await Offer().get(`/offers/competitors/${this.id}`).then(res => {
+        res.data.map(item => {
+          this.carouselData.push({
+            src: item.images && item.images.length > 0 ? item.images[0].imageUrl : '',
+            title: item.title,
+            notes: item.notes
+          })
+        })
+      })
+    },
     setUserData () {
       this.user = {
         email: localStorage.getItem('email') || '',

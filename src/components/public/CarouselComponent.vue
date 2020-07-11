@@ -16,7 +16,7 @@
           </div>
           <div class="content">
             <!-- <h3>{{slide.title}}</h3> -->
-            <p>{{slide.notes}}</p>
+            <a :href="`/offers/${slide.id}`">{{slide.title}}</a>
           </div>
         </slide>
       </carousel>
@@ -72,7 +72,7 @@ export default {
   background: white;
   opacity: 0.7;
 }
-.content p {
+.content a {
   color: black;
   padding: 2px;
   margin: 2px 20px;

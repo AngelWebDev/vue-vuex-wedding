@@ -31,12 +31,6 @@
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label class="label-title">Your partner's name*</label>
-                <input type="text" v-model="user.personName" class="form-control" placeholder="Who are you marrying?">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
                 <label class="label-title">Estimated guests*</label>
                 <input type="text" v-model="user.estimatedGuest" class="form-control" placeholder="How many guests?">
               </div>
@@ -70,6 +64,12 @@
             </div>
             <div class="col-lg-6">
               <div class="form-group">
+                <label class="label-title">Full Address*</label>
+                <input type="text" v-model="user.address" class="form-control" placeholder="">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
                 <label class="label-title">Program Start Date*</label>
                 <input type="date" class="form-control" v-model="user.programStartDate">
               </div>
@@ -80,10 +80,11 @@
                 <input type="date" class="form-control" v-model="user.programEndDate">
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-12">
               <div class="form-group">
-                <label class="label-title">Full Address*</label>
-                <input type="text" v-model="user.address" class="form-control" placeholder="">
+                <label class="label-title">Message</label>
+                <textarea class="form-control" v-model="user.notes">
+                </textarea>
               </div>
             </div>
           </div>
@@ -122,7 +123,6 @@ export default {
         eventId: '',
         inquiryDate: '',
         notes: '',
-        personName: '',
         phone: '',
         programEndDate: '',
         programStartDate: '',
@@ -139,8 +139,6 @@ export default {
       estimatedBudget: localStorage.getItem('estimatedBudget') || '',
       estimatedGuest: localStorage.getItem('estimatedGuest') || '',
       inquiryDate: localStorage.getItem('inquiryDate') || '',
-      notes: localStorage.getItem('notes') || '',
-      personName: localStorage.getItem('personName') || '',
       phone: localStorage.getItem('phone') || '',
       programEndDate: localStorage.getItem('programEndDate') || '',
       programStartDate: localStorage.getItem('programStartDate') || '',
@@ -160,14 +158,13 @@ export default {
       localStorage.setItem('estimatedBudget', this.user.estimatedBudget)
       localStorage.setItem('estimatedGuest', this.user.estimatedGuest)
       localStorage.setItem('inquiryDate', this.user.inquiryDate)
-      localStorage.setItem('notes', this.user.notes)
-      localStorage.setItem('personName', this.user.personName)
       localStorage.setItem('phone', this.user.phone)
       localStorage.setItem('programEndDate', this.user.programEndDate)
       localStorage.setItem('programStartDate', this.user.programStartDate)
       localStorage.setItem('programType', this.user.programType)
       localStorage.setItem('address', this.user.address)
       localStorage.setItem('userName', this.user.userName)
+      localStorage.setItem('submit', true)
     }
   }
 }

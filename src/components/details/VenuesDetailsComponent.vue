@@ -3,6 +3,12 @@
     <ViewPhotoComponent v-if="isViewPhoto" :images="details.images" :title="details.title" />
     <div class="section-full content-inner wedding-venues-details bg-gray">
       <div class="container">
+        <el-dialog
+          title="Message"
+          :visible.sync="dialogVisible"
+          width="50%">
+          <p v-html="message" />
+        </el-dialog>
         <div class="row ">
           <!-- Left part start -->
           <div class="col-xl-8 col-lg-7 col-md-12 p-b30">
@@ -67,21 +73,8 @@
               <div class="venues-sidebar-info">
                 <div class="title-head"><h5 class="title">Send a message to {{details.title}}</h5></div>
                 <small class="small-bx">We will pass your details to the supplier so they can get back to you with a proposal.</small>
-                <ul class="vender-profile-list">
-                  <li><a data-toggle="modal" data-target="#edit-details" class="btn edit">Edit <i class="fa fa-pencil"></i></a></li>
-                  <li><strong>Email:</strong> {{user.email}}</li>
-                  <li><strong>Phone:</strong> {{user.phone}}</li>
-                  <li><strong>Names:</strong> {{user.userName}}</li>
-                  <li><strong>Inquiry date:</strong> {{user.inquiryDate}}</li>
-                  <li><strong>Estimated guests:</strong> {{user.estimatedGuest}}</li>
-                  <li><strong>Estimated budget:</strong> {{user.estimatedBudget}}</li>
-                </ul>
                 <div class="text-message">
-                  <div>
-                    <textarea class="form-control" v-model="user.notes">
-                    </textarea>
-                  </div>
-                  <a @click="submit" class="btn btn-block gradient green">Contact Business</a>
+                  <a data-toggle="modal" data-target="#edit-details" class="btn btn-block gradient green" @click="changeStatus('INQUIRY')">Contact Business</a>
                 </div>
               </div>
             </aside>
@@ -112,13 +105,13 @@
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:;" data-toggle="modal" data-target="#exampleModal2" class="btn quote-btn">
+                  <a href="javascript:;" data-toggle="modal" data-target="#edit-details" class="btn quote-btn" @click="changeStatus('QUOTE')">
                     <i class="fa fa-eur"></i>
                     <span>Request a quote</span>
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:;" data-toggle="modal" data-target="#contactSupplier" class="btn">
+                  <a href="javascript:;" data-toggle="modal" data-target="#edit-details" class="btn" @click="changeStatus('INQUIRY')">
                     <i class="fa fa-envelope-o"></i>
                     <span>Contact supplier</span>
                   </a>
@@ -135,7 +128,7 @@
           <!-- Side bar END -->
         </div>
         <image-item-component :businessId="this.id" />
-        <Carousel3DComponent :data="threeData" :category="details.bizCategories[0].categoryId" :city="details.address.city"/>
+        <Carousel3DComponent :data="threeData" :category="details.bizCategories && details.bizCategories[0].categoryId" :city="details.address && details.address.city"/>
         <CarouselComponent :data="carouselData" />
       </div>
     </div>
@@ -151,6 +144,9 @@ import EditModalComponent from './EditModalComponent'
 import ViewPhotoComponent from './ViewPhotoComponent'
 import Api from '../../services/Api'
 import Offer from '../../services/Offer'
+import Vue from 'vue'
+import Element from 'element-ui'
+Vue.use(Element)
 export default {
   name: 'VenuesDetailsComponent',
   components: {
@@ -170,6 +166,8 @@ export default {
       isShowModal: false,
       threeData: [],
       carouselData: [],
+      dialogVisible: false,
+      message: '',
       user: {
         email: '',
         estimatedBudget: 0,
@@ -192,6 +190,10 @@ export default {
     await this.setUserData()
     await this.getThreeData()
     await this.getCarouselData()
+    if (localStorage.getItem('submit') === 'true') {
+      this.submit()
+      localStorage.setItem('submit', false)
+    }
   },
   computed: {
     details () {
@@ -237,7 +239,8 @@ export default {
           this.carouselData.push({
             src: item.images && item.images.length > 0 ? item.images[0].imageUrl : '',
             title: item.title,
-            notes: item.notes
+            notes: item.notes,
+            id: item.id
           })
         })
       })
@@ -259,17 +262,30 @@ export default {
       }
     },
     submit () {
+      console.log(localStorage.getItem('status'))
       const payload = {
         ...this.user,
         businessId: parseInt(this.id),
-        status: 'INQUIRY',
+        status: localStorage.getItem('status'),
         eventId: 0
       }
+      console.log(payload)
 
-      Api().post('/business/inquiries', payload)
+      Api().post('/business/inquiries', payload).then(res => {
+        if (res.status === 201) {
+          this.dialogVisible = true
+          this.message = 'Your Message was sent successfully.'
+        }
+      }).catch(error => {
+        this.dialogVisible = true
+        this.message = error
+      })
     },
     viewPhoto () {
       this.isViewPhoto = !this.isViewPhoto
+    },
+    changeStatus (type) {
+      localStorage.setItem('status', type)
     }
   }
 }

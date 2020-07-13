@@ -2,7 +2,7 @@
   <div class="container">
     <div class="form-title"><h2 class="title-purple">More Businesses for {{category}} in {{city}}</h2></div>
     <div class="row" v-if="data.length > 0">
-      <carousel-3d :autoplay="true" :controls-visible="true" :clickable="false">
+      <carousel-3d :autoplay="true" :autoplayTimeout="5000" :animationSpeed="1000" :controls-visible="true" :clickable="false">
         <slide v-for="(slide, i) in data" :key="i" :index="i">
           <figure>
             <div class="image-wrapper">

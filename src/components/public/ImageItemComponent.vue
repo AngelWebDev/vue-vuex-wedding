@@ -16,8 +16,7 @@
                   </div>
                 </div>
                 <div class="listing-info">
-                  <h3 class="title"><a>{{image.imageTitle}}</a></h3>
-                  <a class="btn-link">{{image.imageType}}</a>
+                  <h3 class="title">{{image.imageTitle}}</h3>
                 </div>
               </div>
             </div>
@@ -62,18 +61,18 @@ export default {
                 imageType: item.notes
               })
             })
-            if (this.images.length < 5) {
-              let len = this.images.length
-              while (len <= 5) {
-                this.images.push({
-                  id: null,
-                  imageUrl: '/static/images/gallery/pic1.jpg',
-                  imageTitle: null,
-                  imageType: null
-                })
-                len++
-              }
-            }
+            // if (this.images.length < 5) {
+            //   let len = this.images.length
+            //   while (len <= 5) {
+            //     this.images.push({
+            //       id: null,
+            //       imageUrl: '/static/images/gallery/pic1.jpg',
+            //       imageTitle: null,
+            //       imageType: null
+            //     })
+            //     len++
+            //   }
+            // }
             this.errors.isImageData = true
           }
         })
@@ -99,5 +98,12 @@ export default {
   margin: 10px;
   height: 30vh;
   overflow: hidden;
+}
+.title {
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: auto;
 }
 </style>

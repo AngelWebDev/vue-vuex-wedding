@@ -252,7 +252,7 @@ export default {
         estimatedGuest: parseInt(localStorage.getItem('estimatedGuest')) || '',
         inquiryDate: localStorage.getItem('inquiryDate') || '',
         notes: localStorage.getItem('notes') || '',
-        personName: localStorage.getItem('personName') || '',
+        personName: localStorage.getItem('person') || '',
         phone: localStorage.getItem('phone') || '',
         programEndDate: localStorage.getItem('programEndDate') || '',
         programStartDate: localStorage.getItem('programStartDate') || '',
@@ -262,14 +262,12 @@ export default {
       }
     },
     submit () {
-      console.log(localStorage.getItem('status'))
       const payload = {
         ...this.user,
         businessId: parseInt(this.id),
         status: localStorage.getItem('status'),
         eventId: 0
       }
-      console.log(payload)
 
       Api().post('/business/inquiries', payload).then(res => {
         if (res.status === 201) {

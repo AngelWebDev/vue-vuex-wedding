@@ -14,7 +14,8 @@
             <div class="col-xl-12 col-lg-12 col-md-12">
               <div class="settings-box m-b30 gray-input">
                 <form v-on:submit.prevent="onSubmit">
-                  <div class="form-title"><h2 class="title-purple">Add Business</h2></div>
+                  <div class="form-title" v-if="this.isShowEditButton && !this.$route.params.id"><h2 class="title-purple">Add Business</h2></div>
+                  <div class="form-title" v-else><h2 class="title-purple">Edit Business</h2></div>
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
@@ -39,13 +40,13 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Email address </label>
-                        <input type="email" class="form-control" placeholder="Add an email" name="email"/>
+                        <input type="email" class="form-control" placeholder="Add an email" name="email" v-model="formData.email"/>
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Phone number</label>
-                        <input type="text" class="form-control" placeholder="Add a phone number" name="phone"/>
+                        <input type="text" class="form-control" placeholder="Add a phone number" name="phone" v-model="formData.phone"/>
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -100,6 +101,13 @@
                         </textarea>
                       </div>
                     </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Brief Description*</label>
+                        <textarea class="form-control" name="shortDescription" v-model="formData.shortDescription" required>
+                        </textarea>
+                      </div>
+                    </div>
                   </div>
                   <div class="form-title"><h2>Your User Photo</h2></div>
                   <div class="row">
@@ -124,7 +132,7 @@
                         <p class="text-danger" v-if="this.errors.category"> please input this field. </p>
                       </div>
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8">
+                    <!-- <div class="col-lg-8 col-md-8 col-sm-8">
                       <div class="form-group">
                         <label> Regions Served </label>
                         <p> Please select the region(s) that are relevant to your business </p>
@@ -137,21 +145,26 @@
                           </li>
                         </ul>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="row">
-                    <div class="col-lg-12" v-if="!this.isShowEditButton">
+                    <div class="col-lg-6" v-if="this.isShowEditButton && !this.$route.params.id">
                       <div class="form-group">
                         <input class="btn green btn-block" type="submit" value="Save" />
                       </div>
                     </div>
-                    <div class="col-lg-6" v-if="this.isShowEditButton">
+                    <div class="col-lg-6" v-if="this.isShowEditButton && !this.$route.params.id">
+                      <button class="btn blue btn-block" @click="addPromotion"> Add Promotions </button>
+                    </div>
+                    <div class="col-lg-12" v-if="!this.isShowEditButton && this.$route.params.id" @click="changeButton">
+                      <div class="form-group">
+                        <input class="btn green btn-block" type="submit" value="Update Business" />
+                      </div>
+                    </div>
+                    <div class="col-lg-12" v-if="this.isShowEditButton && this.$route.params.id" @click="changeButton">
                       <div class="form-group">
                         <input class="btn green btn-block" type="submit" value="Edit" />
                       </div>
-                    </div>
-                    <div class="col-lg-6" v-if="this.isShowEditButton">
-                      <button class="btn blue btn-block" @click="addPromotion"> Add Promotions </button>
                     </div>
                   </div>
                 </form>
@@ -170,60 +183,6 @@
     <!-- contact area -->
     <section id="tabs" class="project-tab">
       <business-table-component :id="this.$route.params.id" />
-      <!-- <div class="container">
-        <div class="form-title"><h2 class="title-purple">Business Inquiries</h2></div>
-        <hr/>
-        <div class="row">
-          <div class="col-md-12">
-            <nav>
-              <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                <a v-for="item in this.nav_tab"
-                  :key="item.id"
-                  :class="item.class"
-                  :id="item.id"
-                  :data-toggle="item.data_toggle"
-                  :role="item.role"
-                  :aria-controls="item.aria_controls"
-                  :aria-selected="item.aria_selected"
-                  @click="getTableData(item.title)"
-                >
-                  {{ item.title }} ( {{ item.number }} )
-                </a>
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav1" role="tabpanel" aria-labelledby="nav1-tab">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Inquiry Date</th>
-                      <th>Start Date - End Date</th>
-                      <th>Name</th>
-                      <th>Type</th>
-                      <th>Estimated Guest</th>
-                      <th>Budget</th>
-                      <th>City</th>
-                      <th>State</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="td in this.tableData" :key="td.inquiryId">
-                      <td>{{td.inquiryDate}}</td>
-                      <td>{{td.programStartDate + ' - ' + td.programEndDate}}</td>
-                      <td>{{td.personName}}</td>
-                      <td>{{td.programType}}</td>
-                      <td>{{td.estimatedGuest}}</td>
-                      <td>{{td.estimatedBudget}}</td>
-                      <td>{{td.address.city}}</td>
-                      <td>{{td.address.state}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </section>
     <!-- contact area end -->
   </div>
@@ -267,14 +226,13 @@ export default {
       },
       dialogVisible: false,
       message: '',
-      isShowEditButton: false,
+      isShowEditButton: true,
       businessId: 0
     }
   },
   mounted () {
     if (this.$route.params.id) {
       this.getPageData(this.$route.params.id)
-      this.isShowEditButton = true
     } else {
       this.initFormData()
     }
@@ -291,6 +249,8 @@ export default {
         'businessId': 0,
         'businessType': '',
         'username': '',
+        'email': '',
+        'phone': '',
         'title': '',
         'shortDescription': '',
         'longDescription': '',
@@ -315,6 +275,8 @@ export default {
             this.formData = {
               'businessId': res.data.businessId,
               'businessType': res.data.businessType,
+              'email': res.data.email,
+              'phone': res.data.phone,
               'username': res.data.username,
               'title': res.data.title,
               'shortDescription': res.data.shortDescription,
@@ -345,6 +307,12 @@ export default {
           }
         })
     },
+    changeButton () {
+      if (this.$route.params.id) {
+        this.isShowEditButton = !this.isShowEditButton
+        if (this.isShowEditButton) this.onSubmit()
+      }
+    },
     onSubmit: function () {
       if (!this.formData.activeStatus || this.formData.bizCategories.length === 0) {
         this.errors = {
@@ -365,8 +333,10 @@ export default {
       let data = {
         'title': this.formData.title,
         'businessType': 'VENDOR',
+        'email': this.formData.email,
+        'phone': this.formData.phone,
         'longDescription': this.formData.longDescription,
-        'shortDescription': '',
+        'shortDescription': this.formData.shortDescription,
         'username': this.formData.username,
         'activeStatus': this.formData.activeStatus,
         'address': {
@@ -376,12 +346,12 @@ export default {
           'latitude': null,
           'locationId': 0,
           'longitude': '',
-          'postalCode': this.formData.postcode,
+          'postalCode': this.formData.postalcode,
           'state': this.formData.state
         },
         'bizCategories': bizCategories
       }
-      if (!this.isShowEditButton) {
+      if (this.isShowEditButton && !this.$route.params.id) {
         Api().post('/business', data)
           .then(res => {
             if (res) {

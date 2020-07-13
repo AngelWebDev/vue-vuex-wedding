@@ -6,7 +6,7 @@ export default class Categories {
     return res.data
   }
   static async getAllInqueries (id) {
-    const res = await Api().get(`/business/${id}/inquiries/ALL`)
+    const res = await Api().get(`/business/${id}/inquiries/INQUIRY`)
     return res.data
   }
   static async getAllVendors () {

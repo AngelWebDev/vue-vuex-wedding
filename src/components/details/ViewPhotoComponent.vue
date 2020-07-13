@@ -27,7 +27,7 @@
       <div class="lg-thumb-outer lg-grab" style="height: 100px;">
         <div class="lg-thumb lg-group" style="width: 1680px; position: relative; transform: translate3d(0px, 0px, 0px); transition-duration: 600ms;">
           <div data-vimeo-id="" :class=" currentId === index ? 'lg-thumb-item active' : 'lg-thumb-item'" v-for="(item, index) in images" :key="index">
-            <img :src="item.imageUrl">
+            <img :src="item.imageUrl" @click="setImage(index, item.imageUrl)">
           </div>
         </div>
       <span class="lg-toogle-thumb lg-icon" ></span>
@@ -63,6 +63,10 @@ export default {
       if (id >= this.images.length) id = this.images.length - 1
       this.currentImage = this.images[id].imageUrl
       this.currentId = id
+    },
+    setImage (id, url) {
+      this.currentId = id
+      this.currentImage = url
     }
   }
 }

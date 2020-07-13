@@ -14,7 +14,7 @@
               :role="item.role"
               :aria-controls="item.aria_controls"
               :aria-selected="item.aria_selected"
-              @click="getTableData(item.title)"
+              @click="getTableData(item.value)"
             >
               {{ item.title }} ( {{ item.number }} )
             </a>
@@ -27,24 +27,24 @@
                 <tr>
                   <th>Inquiry Date</th>
                   <th>Start Date - End Date</th>
+                  <th>Status</th>
                   <th>Name</th>
                   <th>Type</th>
                   <th>Estimated Guest</th>
                   <th>Budget</th>
-                  <th>City</th>
-                  <th>State</th>
+                  <th>Address</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="td in this.tableData" :key="td.inquiryId">
                   <td>{{td.inquiryDate}}</td>
                   <td>{{td.programStartDate + ' - ' + td.programEndDate}}</td>
+                  <td>{{td.status}}</td>
                   <td>{{td.personName}}</td>
                   <td>{{td.programType}}</td>
                   <td>{{td.estimatedGuest}}</td>
                   <td>{{td.estimatedBudget}}</td>
-                  <td>{{td.address.city}}</td>
-                  <td>{{td.address.state}}</td>
+                  <td>{{td.address}}</td>
                 </tr>
               </tbody>
             </table>
@@ -55,7 +55,6 @@
   </div>
 </template>
 <script>
-import Api from '../../services/Api'
 import { Type } from '../../store/mutation-type'
 export default {
   name: 'BusinessTableComponent',
@@ -65,9 +64,9 @@ export default {
   data () {
     return {
       nav_tab: [
-        {id: 1, class: 'nav-item nav-link active', data_toggle: 'tab', role: 'tab', aria_controls: 'nav1', aria_selected: 'true', title: 'BOOKED', number: 0},
-        {id: 2, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav2', aria_selected: 'false', title: 'INQUIRY', number: 0},
-        {id: 3, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav3', aria_selected: 'false', title: 'ALL', number: 0}
+        {id: 1, class: 'nav-item nav-link active', data_toggle: 'tab', role: 'tab', aria_controls: 'nav1', aria_selected: 'true', title: 'BOOKED', value: 'BOOKED', number: 0},
+        {id: 2, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav2', aria_selected: 'false', title: 'INQUIRY/QUOTE', value: 'INQUIRY', number: 0},
+        {id: 3, class: 'nav-item nav-link', data_toggle: 'tab', role: 'tab', aria_controls: 'nav3', aria_selected: 'false', title: 'ALL', value: 'ALL', number: 0}
       ],
       tableData: []
     }
@@ -85,22 +84,17 @@ export default {
       this.nav_tab = this.nav_tab.map(item => {
         return {
           ...item,
-          number: item.title === 'ALL' ? tables.length : tables.filter(col => col.status === item.title).length
+          number: item.value === 'ALL' ? tables.length : tables.filter(col => col.status === item.value).length
         }
       })
     },
-    getTableData: function (category) {
-      if (this.id) {
-        Api().get(`/business/${this.id}/inquiries/${category}`)
-          .then(res => {
-            this.tableData = res.data
-            this.errors.isTable = true
-          })
-          .catch(error => {
-            if (error) this.errors.isTable = false
-          })
+    async getTableData (category) {
+      const tables = await this.$store.state.allInqueries
+      console.log(category, tables)
+      if (category === 'ALL') {
+        this.tableData = await tables
       } else {
-        this.tableData = []
+        this.tableData = await tables.filter(col => col.status === category)
       }
     }
   }

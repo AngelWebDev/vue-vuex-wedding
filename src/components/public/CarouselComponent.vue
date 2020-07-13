@@ -12,7 +12,7 @@
         zIndex= "100 !important">
         <slide v-for="(slide, i) in data" :key="i">
           <div class="listing-media">
-            <img :src="slide.src" />
+            <img :src="slide.src" @click="moveToOther(slide.id)"/>
           </div>
           <div class="content">
             <!-- <h3>{{slide.title}}</h3> -->
@@ -36,6 +36,11 @@ export default {
   },
   props: {
     data: Array
+  },
+  methods: {
+    moveToOther (id) {
+      this.$router.push(`/offers/${id}`)
+    }
   }
 }
 </script>
@@ -46,7 +51,7 @@ export default {
   object-fit: cover;
 }
 .listing-media {
-  margin: 0px;
+  margin: 0px 10px;
   height: 15vw;
   overflow: hidden;
 }
@@ -65,22 +70,21 @@ export default {
   transform: translate(-50%, -50%);
 }
 .content {
-  width: 100%;
+  width: 95%;
   height: 30px;
   position: absolute;
   bottom: 0px;
   background: white;
   opacity: 0.7;
+  margin: 0px 10px;
 }
 .content a {
   color: black;
   padding: 2px;
-  margin: 2px 20px;
   text-align: center;
   font-size: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   width: auto;
 }
 .content h3 {

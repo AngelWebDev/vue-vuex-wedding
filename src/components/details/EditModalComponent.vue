@@ -31,6 +31,12 @@
             </div>
             <div class="col-lg-6">
               <div class="form-group">
+                <label class="label-title">Person name*</label>
+                <input type="text" v-model="user.person" class="form-control" placeholder="What's your name?">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
                 <label class="label-title">Estimated guests*</label>
                 <input type="text" v-model="user.estimatedGuest" class="form-control" placeholder="How many guests?">
               </div>
@@ -41,12 +47,12 @@
                 <input type="text" v-model="user.estimatedBudget" class="form-control" placeholder="How much budget?">
               </div>
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
               <div class="form-group">
                 <label class="label-title">Inquiry date*</label>
                 <input type="date" class="form-control" v-model="user.inquiryDate">
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-6">
               <div class="form-group">
                 <label class="label-title">Program Type*</label><br/>
@@ -128,7 +134,8 @@ export default {
         programStartDate: '',
         programType: '',
         status: '',
-        userName: ''
+        userName: '',
+        person: ''
       }
     }
   },
@@ -144,7 +151,8 @@ export default {
       programStartDate: localStorage.getItem('programStartDate') || '',
       programType: localStorage.getItem('programType') || '',
       address: localStorage.getItem('address') || '',
-      userName: localStorage.getItem('userName') || ''
+      userName: localStorage.getItem('userName') || '',
+      person: localStorage.getItem('person') || ''
     }
   },
   computed: {
@@ -159,11 +167,13 @@ export default {
       localStorage.setItem('estimatedGuest', this.user.estimatedGuest)
       localStorage.setItem('inquiryDate', this.user.inquiryDate)
       localStorage.setItem('phone', this.user.phone)
+      localStorage.setItem('notes', this.user.notes)
       localStorage.setItem('programEndDate', this.user.programEndDate)
       localStorage.setItem('programStartDate', this.user.programStartDate)
       localStorage.setItem('programType', this.user.programType)
       localStorage.setItem('address', this.user.address)
       localStorage.setItem('userName', this.user.userName)
+      localStorage.setItem('person', this.user.person)
       localStorage.setItem('submit', true)
     }
   }

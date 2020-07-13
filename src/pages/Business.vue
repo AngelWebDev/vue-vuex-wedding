@@ -148,7 +148,7 @@
                     </div> -->
                   </div>
                   <div class="row">
-                    <div class="col-lg-6" v-if="!this.$route.params.id">
+                    <div class="col-lg-12" v-if="!this.$route.params.id">
                       <div class="form-group">
                         <input class="btn green btn-block" type="submit" value="Save" />
                       </div>
@@ -159,7 +159,7 @@
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <button class="btn blue btn-block" @click="addPromotion"> Add Promotions </button>
+                      <button class="btn blue btn-block" v-if="this.$route.params.id" @click="addPromotion"> Add Promotions </button>
                     </div>
                   </div>
                 </form>
@@ -344,7 +344,7 @@ export default {
           'latitude': null,
           'locationId': 0,
           'longitude': '',
-          'postalCode': this.formData.postalcode,
+          'postalCode': this.formData.postalCode,
           'state': this.formData.state
         },
         'bizCategories': bizCategories
@@ -384,6 +384,7 @@ export default {
     },
     addPromotion: function () {
       this.$router.push('/offers')
+      this.$store.commit(Type.SAVE_BUSINESS_FOR_OFFER, this.formData.businessId)
     },
     uploadFile: function (event) {
       Object.values(event.target.files).map(file => {

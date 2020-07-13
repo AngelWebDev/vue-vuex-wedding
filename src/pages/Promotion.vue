@@ -57,7 +57,7 @@
                       <div class="form-group">
                         <label>Categories</label>
                         <br/>
-                        <el-select name="category" v-model="category" multiple placeholder="Select Category">
+                        <el-select name="category" v-model="formData.category" placeholder="Select Category">
                           <el-option
                             v-for="(item, index) in categoryOptionLists"
                             :key="index"
@@ -161,7 +161,6 @@ export default {
     return {
       formData: {},
       photos: [],
-      category: [],
       statusLists: [
         {id: 1, name: 'ACTIVE'},
         {id: 2, name: 'INACTIVE'}
@@ -233,11 +232,11 @@ export default {
     },
 
     onSubmit: function () {
-      if (!this.formData.activeStatus || this.category.length === 0) {
+      if (!this.formData.activeStatus || this.formData.category === '') {
         if (!this.formData.activeStatus) {
           this.errors.activeStatus = true
         }
-        if (this.category.length === 0) {
+        if (this.formDatacategory === '') {
           this.errors.category = true
         }
         return
@@ -251,14 +250,15 @@ export default {
       let data = {
         'id': this.formData.id,
         'activeStatus': this.formData.activeStatus,
-        'businessId': this.$store.state.storedId,
         'fromDate': this.formData.fromDate,
         'notes': this.formData.notes,
         'offAmount': this.formData.offAmount,
         'offPercent': this.formData.offPercent,
         'title': this.formData.title,
         'toDate': this.formData.toDate,
-        'images': this.photos
+        'images': this.photos,
+        'businessId': this.$store.state.storedBusinessId,
+        'categoryId': this.formData.category
       }
       if (!this.flags.isEditShow) {
         Offer().post('/offers', data)
@@ -323,7 +323,8 @@ export default {
         'toDate': '',
         'activeStatus': 'ACTIVE',
         'offPercent': 0,
-        'offAmount': 0
+        'offAmount': 0,
+        'category': ''
       }
       this.category = []
       this.errors = {
@@ -341,7 +342,8 @@ export default {
         'toDate': res.toDate,
         'activeStatus': res.activeStatus,
         'offPercent': res.offPercent,
-        'offAmount': res.offAmount
+        'offAmount': res.offAmount,
+        'category': res.category
       }
     }
   }

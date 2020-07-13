@@ -90,7 +90,6 @@ export default {
     },
     async getTableData (category) {
       const tables = await this.$store.state.allInqueries
-      console.log(category, tables)
       if (category === 'ALL') {
         this.tableData = await tables
       } else {

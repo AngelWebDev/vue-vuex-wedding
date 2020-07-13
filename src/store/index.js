@@ -14,7 +14,8 @@ export default new Vuex.Store(
       places: [],
       totalVendors: 0,
       vendors: [],
-      zone1: []
+      zone1: [],
+      storedBusinessId: ''
     },
     mutations: {
       [Type.GET_ALL_CATEGORIES] (state, payload) {
@@ -40,6 +41,9 @@ export default new Vuex.Store(
       },
       [Type.SET_ZONE1] (state, payload) {
         state.zone1 = payload
+      },
+      [Type.SAVE_BUSINESS_FOR_OFFER] (state, payload) {
+        state.storedBusinessId = payload
       }
     },
     actions: {

@@ -34,7 +34,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Website URL</label>
-                        <input type="text" class="form-control" placeholder="" name="url" v-model="formData.url" />
+                        <input type="text" class="form-control" placeholder="" name="url" v-model="formData.webUrl" />
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -46,7 +46,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Phone number</label>
-                        <input type="text" class="form-control" placeholder="Add a phone number" name="phone" v-model="formData.phone"/>
+                        <input type="text" class="form-control" placeholder="Add a phone number" name="phone" v-model="formData.phone1"/>
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -148,23 +148,18 @@
                     </div> -->
                   </div>
                   <div class="row">
-                    <div class="col-lg-6" v-if="this.isShowEditButton && !this.$route.params.id">
+                    <div class="col-lg-6" v-if="!this.$route.params.id">
                       <div class="form-group">
                         <input class="btn green btn-block" type="submit" value="Save" />
                       </div>
                     </div>
-                    <div class="col-lg-6" v-if="this.isShowEditButton && !this.$route.params.id">
-                      <button class="btn blue btn-block" @click="addPromotion"> Add Promotions </button>
-                    </div>
-                    <div class="col-lg-12" v-if="!this.isShowEditButton && this.$route.params.id" @click="changeButton">
+                    <div class="col-lg-6" v-if="this.$route.params.id" @click="changeButton">
                       <div class="form-group">
                         <input class="btn green btn-block" type="submit" value="Update Business" />
                       </div>
                     </div>
-                    <div class="col-lg-12" v-if="this.isShowEditButton && this.$route.params.id" @click="changeButton">
-                      <div class="form-group">
-                        <input class="btn green btn-block" type="submit" value="Edit" />
-                      </div>
+                    <div class="col-lg-6">
+                      <button class="btn blue btn-block" @click="addPromotion"> Add Promotions </button>
                     </div>
                   </div>
                 </form>
@@ -248,10 +243,10 @@ export default {
       this.formData = {
         'businessId': 0,
         'businessType': '',
-        'url': '',
+        'webUrl': '',
         'username': '',
         'email': '',
-        'phone': '',
+        'phone1': '',
         'title': '',
         'shortDescription': '',
         'longDescription': '',
@@ -275,10 +270,10 @@ export default {
           if (res) {
             this.formData = {
               'businessId': res.data.businessId,
-              // 'businessType': res.data.businessType,
-              'url': res.data.url,
+              'businessType': res.data.businessType,
+              'webUrl': res.data.webUrl,
               'email': res.data.email,
-              'phone': res.data.phone,
+              'phone1': res.data.phone1,
               'username': res.data.username,
               'title': res.data.title,
               'shortDescription': res.data.shortDescription,
@@ -335,8 +330,9 @@ export default {
       let data = {
         'title': this.formData.title,
         'businessType': 'VENDOR',
+        'webUrl': this.formData.webUrl,
         'email': this.formData.email,
-        'phone': this.formData.phone,
+        'phone1': this.formData.phone1,
         'longDescription': this.formData.longDescription,
         'shortDescription': this.formData.shortDescription,
         'username': this.formData.username,

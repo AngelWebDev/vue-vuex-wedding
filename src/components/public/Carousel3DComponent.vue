@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     moveToOther (id) {
-      this.$router.push(`/business/${id}`)
+      this.$router.push(`/business/detail/${id}`)
     }
   }
 }

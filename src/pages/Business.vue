@@ -34,7 +34,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="form-group">
                         <label>Website URL</label>
-                        <input type="text" class="form-control" placeholder="" name="url"/>
+                        <input type="text" class="form-control" placeholder="" name="url" v-model="formData.url" />
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -248,6 +248,7 @@ export default {
       this.formData = {
         'businessId': 0,
         'businessType': '',
+        'url': '',
         'username': '',
         'email': '',
         'phone': '',
@@ -274,7 +275,8 @@ export default {
           if (res) {
             this.formData = {
               'businessId': res.data.businessId,
-              'businessType': res.data.businessType,
+              // 'businessType': res.data.businessType,
+              'url': res.data.url,
               'email': res.data.email,
               'phone': res.data.phone,
               'username': res.data.username,
